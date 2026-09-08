@@ -7,6 +7,7 @@ Product Owner(P.O)
 Guilherme Augusto Gatto – RA: R2798I3
 
 SCRUM MASTER
+
 Luis Henrique de Aquino Mello – RA: R2882I9
 
 DEV TIME
