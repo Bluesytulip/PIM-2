@@ -4,6 +4,7 @@ Temos como objetivo desenvolver e documentar um sistema que tenha como funcional
 Tudo em torno de facilitar e resolver a agenda do nosso cliente o barbeiro
 
 Product Owner(P.O)  
+
 Guilherme Augusto Gatto – RA: R2798I3
 
 SCRUM MASTER
@@ -11,6 +12,7 @@ SCRUM MASTER
 Luis Henrique de Aquino Mello – RA: R2882I9
 
 DEV TIME
+
 Igor Ribeiro Morais da Silva - RA : R335011
 Ítalo Renan Santos Lima – RA: R2792H1
 João Pedro Freitas Oliveira – RA: H838339
