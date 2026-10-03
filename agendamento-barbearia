@@ -1,0 +1,156 @@
+// agendamento
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+
+    // ===== VARIÁVEIS =====
+    char data[20][11];
+    char hora[20][6];
+    char descricao[20][50];
+    int qtdAgendamentos = 0;
+    int opcao = 0;
+
+    while (opcao != 4) {
+
+        // ===== MENU =====
+        printf("\n===== AGENDAMENTO =====\n");
+        printf("1 - Agendar\n");
+        printf("2 - Ver agendamentos\n");
+        printf("3 - Cancelar agendamento\n");
+        printf("4 - Sair\n");
+
+        scanf("%d", &opcao);
+
+        // ===== AGENDAR =====
+        if (opcao == 1) {
+
+            // verifica limite
+            if (qtdAgendamentos >= 20) {
+                printf("\nAgenda cheia!\n");
+            }
+            else {
+                char novaData[11];
+                char novaHora[6];
+                int dia, mes, ano, h, min;
+
+                // entrada de dados
+                printf("digite a data (dd/mm/aaaa):\n");
+                scanf("%10s", novaData);
+
+                printf("digite a hora (hh:mm):\n");
+                scanf("%5s", novaHora);
+
+                // valida data
+                int dataValida = 0;
+                if (strlen(novaData) == 10 &&
+                    sscanf(novaData, "%d/%d/%d", &dia, &mes, &ano) == 3 &&
+                    dia >= 1 && dia <= 31 &&
+                    mes >= 1 && mes <= 12 &&
+                    ano >= 2000) {
+                    dataValida = 1;
+                }
+
+                // valida hora
+                int horaValida = 0;
+                if (strlen(novaHora) == 5 &&
+                    sscanf(novaHora, "%d:%d", &h, &min) == 2 &&
+                    h >= 0 && h <= 23 &&
+                    min >= 0 && min <= 59) {
+                    horaValida = 1;
+                }
+
+                // verifica horário ocupado
+                int horarioOcupado = 0;
+                for (int i = 0; i < qtdAgendamentos; i++) {
+                    if (strcmp(novaData, data[i]) == 0 &&
+                        strcmp(novaHora, hora[i]) == 0) {
+                        horarioOcupado = 1;
+                    }
+                }
+
+                if (dataValida == 0) {
+                    printf("\nData invalida! Use o formato dd/mm/aaaa.\n");
+                }
+                else if (horaValida == 0) {
+                    printf("\nHora invalida! Use o formato hh:mm.\n");
+                }
+                else if (horarioOcupado == 1) {
+                    printf("\nJa existe um agendamento nesse horario!\n");
+                }
+                else {
+                    // salvar agendamento
+                    strcpy(data[qtdAgendamentos], novaData);
+                    strcpy(hora[qtdAgendamentos], novaHora);
+
+                    printf("digite a descricao (ex: consulta):\n");
+                    scanf(" %49[^\n]", descricao[qtdAgendamentos]);
+
+                    qtdAgendamentos++;
+
+                    printf("\nAgendamento realizado com sucesso!\n");
+                }
+            }
+        }
+
+        // ===== VER AGENDAMENTOS =====
+        else if (opcao == 2) {
+            printf("\n===== AGENDAMENTOS =====\n");
+
+            // nenhum encontrado
+            if (qtdAgendamentos == 0) {
+                printf("Nenhum agendamento.\n");
+            }
+
+            // listar agendamentos
+            for (int i = 0; i < qtdAgendamentos; i++) {
+                printf("[%d] %s as %s - %s\n", i + 1, data[i], hora[i], descricao[i]);
+            }
+        }
+
+        // ===== CANCELAR AGENDAMENTO =====
+        else if (opcao == 3) {
+            int numero;
+
+            // listar agendamentos
+            printf("\n===== CANCELAR AGENDAMENTO =====\n");
+            for (int i = 0; i < qtdAgendamentos; i++) {
+                printf("[%d] %s as %s - %s\n", i + 1, data[i], hora[i], descricao[i]);
+            }
+
+            printf("digite o numero do agendamento (0 para voltar):\n");
+            scanf("%d", &numero);
+
+            if (numero != 0) {
+
+                // verifica se o número existe
+                if (numero < 1 || numero > qtdAgendamentos) {
+                    printf("\nNumero invalido!\n");
+                } else {
+                    // remover agendamento
+                    for (int j = numero - 1; j < qtdAgendamentos - 1; j++) {
+                        strcpy(data[j], data[j + 1]);
+                        strcpy(hora[j], hora[j + 1]);
+                        strcpy(descricao[j], descricao[j + 1]);
+                    }
+
+                    qtdAgendamentos--;
+
+                    printf("\nAgendamento cancelado!\n");
+                }
+            }
+        }
+
+        // ===== SAIR =====
+        else if (opcao == 4) {
+            printf("\nSaindo...\n");
+        }
+
+        // ===== OPÇÃO INVÁLIDA =====
+        else {
+            printf("\nOpcao invalida!\n");
+        }
+    }
+
+    return 0;
+}
